@@ -14,6 +14,7 @@ CC				:= gcc
 AR				:= ar
 
 CFLAGS		+= -static
+CFLAGS		+= -lstdc++
 CFLAGS		+= -I$(INCLUDES)
 ifdef DEBUG 
 	CFLAGS	+= -DDEBUG=$(DEBUG)
@@ -22,7 +23,7 @@ endif
 prerequisites:
 	mkdir -p $(LIB_DIR)
 
-all: prerequisites lib
+all: prerequisites lib test
 
 $(CC): prerequisites
 
@@ -35,11 +36,12 @@ $(LIB_DIR)/$(TARGET).a: $(TARGET).o
 test.o: $(TEST_DIR)/main.c
 	$(CC) $(CFLAGS) $< -c -o $@
 
-test: test.o $(LIB_DIR)/$(TARGET).a
+$(BIN_DIR)/test: test.o $(LIB_DIR)/$(TARGET).a
 	mkdir -p $(BIN_DIR)
-	$(CC) -lm -o $(BIN_DIR)/$@ $< -L.$(LIB_DIR)/$(TARGET)
+	$(CC) $^ -o $@
 
 lib: $(LIB_DIR)/$(TARGET).a
+test: $(BIN_DIR)/test
 
 .PHONY: all lib test clean help
 
@@ -54,5 +56,5 @@ help:
 	@echo  '  all         - Build all targets marked with [*]'
 	@echo  '* lib         - Build the bare kernel'
 	@echo  '* test        - Build all modules'
-	@echo  '  help        - Install all modules to INSTALL_MOD_PATH (default: /)'
+	@echo  '  help        - Your here'
 	@echo  ''

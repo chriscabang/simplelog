@@ -1,4 +1,4 @@
-#undef DEBUG
+#undef  DEBUG
 #define DEBUG
 
 #include "simplelog.h"

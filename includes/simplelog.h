@@ -10,7 +10,7 @@
   #define ENABLED 0
 #endif
 
-#define log_info(level, ...) do { if (ENABLED) log_print(level, __VA_ARGS__); } while (0)
+#define log_info(...) do { if (ENABLED) log_printf(DEBUG, __VA_ARGS__); } while (0)
 
 #include <stdio.h>
 
