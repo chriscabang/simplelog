@@ -1,5 +1,5 @@
 PROJECT		:= simplelog
-TARGET	 	:= libsmpllg
+TARGET	 	:= lib$(PROJECT)
 
 ROOT			:= $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 SRC_FILES	:= $(wildcard src/*.c)
@@ -40,10 +40,10 @@ $(BIN_DIR)/test: test.o $(LIB_DIR)/$(TARGET).a
 	mkdir -p $(BIN_DIR)
 	$(CC) $^ -o $@
 
+.PHONY: all lib test clean help
+
 lib: $(LIB_DIR)/$(TARGET).a
 test: $(BIN_DIR)/test
-
-.PHONY: all lib test clean help
 
 clean:
 	rm -rf $(LIB_DIR) $(BIN_DIR) *.o
@@ -56,5 +56,5 @@ help:
 	@echo  '  all         - Build all targets marked with [*]'
 	@echo  '* lib         - Build the bare kernel'
 	@echo  '* test        - Build all modules'
-	@echo  '  help        - Your here'
+	@echo  '  help        - You're here'
 	@echo  ''
