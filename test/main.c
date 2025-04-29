@@ -1,9 +1,11 @@
 #include <stdio.h>
 
-#include <simplelog.h>
+#include <logly.h>
 
 int main() {
   printf("Hello World\n");
+
+  log_set_stream(stdout);
 
   log_info("this is info\n");
   log_debug("and this prints debug\n");

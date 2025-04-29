@@ -1,0 +1,36 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I/opt/homebrew/opt/binutils/include",
+      "-I/opt/homebrew/opt/openssl@3/include",
+      "-fmacro-prefix-map=/Users/chriscabang/Workspace/simplelog=.",
+      "-I/Users/chriscabang/Workspace/simplelog/inc",
+      "-DDEBUG=1",
+      "-c",
+      "-o",
+      "liblogly.o",
+      "src/logly.c"
+    ],
+    "directory": "/Users/chriscabang/Workspace/simplelog",
+    "file": "/Users/chriscabang/Workspace/simplelog/src/logly.c",
+    "output": "/Users/chriscabang/Workspace/simplelog/liblogly.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-I/opt/homebrew/opt/binutils/include",
+      "-I/opt/homebrew/opt/openssl@3/include",
+      "-fmacro-prefix-map=/Users/chriscabang/Workspace/simplelog=.",
+      "-I/Users/chriscabang/Workspace/simplelog/inc",
+      "-DDEBUG=1",
+      "-c",
+      "-o",
+      "test.o",
+      "/Users/chriscabang/Workspace/simplelog/test/main.c"
+    ],
+    "directory": "/Users/chriscabang/Workspace/simplelog",
+    "file": "/Users/chriscabang/Workspace/simplelog/test/main.c",
+    "output": "/Users/chriscabang/Workspace/simplelog/test.o"
+  }
+]

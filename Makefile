@@ -1,9 +1,9 @@
-PROJECT		:= simplelog
+PROJECT		:= logly
 TARGET	 	:= lib$(PROJECT)
 
 ROOT			:= $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 SRC_FILES	:= $(wildcard src/*.c)
-INCLUDES	:= $(ROOT)/includes
+INCLUDES	:= $(ROOT)/inc
 TEST_DIR	:= $(ROOT)/test
 LIB_DIR		:= $(ROOT)/lib
 BIN_DIR		:= $(ROOT)/bin
@@ -15,6 +15,7 @@ AR				:= ar
 
 CFLAGS		+= -static
 CFLAGS		+= -lstdc++
+CFLAGS		+= -fmacro-prefix-map=$(PWD)=.
 CFLAGS		+= -I$(INCLUDES)
 ifdef DEBUG 
 	CFLAGS	+= -DDEBUG=$(DEBUG)

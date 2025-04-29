@@ -1,5 +1,5 @@
 /**
- * FILENAME : simplelog.h
+ * FILENAME : logly.h
  * AUTHOR   : Chris Cabang
  * DATE     : August 20, 2023
  * 
@@ -36,8 +36,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#ifndef __SIMPLE_LOG_H__
-#define __SIMPLE_LOG_H__
+
+#ifndef __LOGLY_H__
+#define __LOGLY_H__
 
 #undef ENABLED
 #if defined(DEBUG)
@@ -46,30 +47,38 @@
   #define ENABLED 0
 #endif
 
+#include <stdio.h>
 #include <string.h>
 
-enum { 
-  LOG_INFO, 
-  LOG_DEBUG, 
-  LOG_WARN,
-  LOG_ERROR
-};
+#define LOG_INFO "INFO"
+#define LOG_WARN "WARN"
+#define LOG_ERROR "ERROR"
+#define LOG_DEBUG "DEBUG"
 
-#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define LOG_BUFFER_SIZE 512
 
-#define log_info(...)  do { \
-    if (ENABLED) log_printf(LOG_INFO , __FILENAME__, __LINE__, __func__, __VA_ARGS__); \
-  } while (0)
-#define log_debug(...) do { \
-    if (ENABLED) log_printf(LOG_DEBUG, __FILENAME__, __LINE__, __func__, __VA_ARGS__); \
-  } while (0)
-#define log_warn(...)  do { \
-    if (ENABLED) log_printf(LOG_WARN , __FILENAME__, __LINE__, __func__, __VA_ARGS__); \
-  } while (0)
-#define log_error(...) do { \
-    if (ENABLED) log_printf(LOG_ERROR, __FILENAME__, __LINE__, __func__, __VA_ARGS__); \
-  } while (0)
+extern FILE* log_stream;
 
-extern void log_printf(int level, const char* file, int line, const char* fn, const char* fmt, ...); 
+void log_set_stream(FILE *stream);
+void log_write(const char *level, const char *file, const char *func, int line,
+               const char *fmt, ...);
 
-#endif//__SIMPLE_LOG_H__ 
+#if defined (__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#endif
+
+#define log_info(fmt, ...) \
+  log_write(LOG_INFO, __FILE__, __func__, __LINE__, fmt, ##__VA_ARGS__)
+#define log_warn(fmt, ...) \
+  log_write(LOG_WARN, __FILE__, __func__, __LINE__, fmt, ##__VA_ARGS__)
+#define log_error(fmt, ...) \
+  log_write(LOG_ERROR, __FILE__, __func__, __LINE__, fmt, ##__VA_ARGS__)
+#define log_debug(fmt, ...) \
+  log_write(LOG_DEBUG, __FILE__, __func__, __LINE__, fmt, ##__VA_ARGS__)
+
+
+#if defined (__clang__)
+#pragma clang diagnostic pop
+#endif
+#endif//__LOGLY_H__ 
